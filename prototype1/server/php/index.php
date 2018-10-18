@@ -10,6 +10,11 @@
  * https://opensource.org/licenses/MIT
  */
 
+ini_set('upload_max_filesize', '4000M');
+ini_set('post_max_size', '4000M');
+ini_set('max_input_time', 30000);
+ini_set('max_execution_time', 30000);
+
 error_reporting(E_ALL | E_STRICT);
 require('UploadHandler.php');
 $upload_handler = new UploadHandler(array(
