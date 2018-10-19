@@ -13,6 +13,10 @@
       <h2 class="lead">Early Prototype #3 - October 2018</h2>
 
       <div id="uppy-select-files"></div>
+      <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
       <script src="https://transloadit.edgly.net/releases/uppy/v0.27.5/dist/uppy.min.js"></script>
       <script>
@@ -32,6 +36,16 @@
               maxNumberOfFiles: 100,
               minNumberOfFiles: 1,
               allowedFileTypes: ['image/*', 'video/*']
+            },
+            onBeforeFileAdded: (currentFile, files) => {
+              // const modifiedFile = Object.assign(
+              //   {},
+              //   currentFile,
+              //   { name: currentFile + Date.now()
+              // })
+              console.log( currentFile.data.name + ' ' + currentFile.data.lastModifiedDate );
+              $('.fileInfo').html( $('.fileInfo').html() + 'File name: ' + currentFile.data.name + ' Date: ' + currentFile.data.lastModifiedDate + '<br/>');
+              //return modifiedFile
             }
           }
         )
@@ -53,13 +67,28 @@
         .use(Dropbox, { target: Dashboard, serverUrl: 'https://companion.uppy.io' })
         .use(Instagram, { target: Dashboard, serverUrl: 'https://companion.uppy.io' })
         .use(Webcam, { target: Dashboard })
-        .use(Tus, { endpoint: 'http://vidsnapprototype:8888/prototype3/files' })
+
+        // Dev
+        .use(Tus, { endpoint: 'http://vidsnapprototype:8888/prototype3/files/' })
+
+        // Staging
+        //.use(Tus, { endpoint: 'http://209.97.176.133/prototype1/files/' })
+        ;
 
         uppy.on('complete', result => {
           console.log('successful files:', result.successful)
           console.log('failed files:', result.failed)
         })
+
       </script>
+
+      <br/>
+      <br/>
+
+      <h3>File Info</h3>
+      <div class="fileInfo">
+
+      </div>
 
     </div>
   </body>
