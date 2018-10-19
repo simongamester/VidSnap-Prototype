@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Uppy</title>
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="node_modules/uppy/dist/uppy.min.css" rel="stylesheet">
+    <link href="https://transloadit.edgly.net/releases/uppy/v0.27.5/dist/uppy.min.css" rel="stylesheet">
   </head>
   <body>
 
@@ -12,16 +12,52 @@
       <h1>VidSnap File Uploader</h1>
       <h2 class="lead">Early Prototype #3 - October 2018</h2>
 
-      <div id="drag-drop-area"></div>
+      <div id="uppy-select-files"></div>
 
-      <script src="node_modules/uppy/dist/uppy.min.js"></script>
+      <script src="https://transloadit.edgly.net/releases/uppy/v0.27.5/dist/uppy.min.js"></script>
       <script>
-        var uppy = Uppy.Core()
-        uppy.use(Uppy.DragDrop, { target: '#drag-drop-area' })
-        uppy.use(Uppy.Tus, { endpoint: 'https://master.tus.io/files/' })
+        const Dashboard = Uppy.Dashboard;
+        const GoogleDrive = Uppy.GoogleDrive;
+        const Dropbox = Uppy.Dropbox;
+        const Instagram = Uppy.Instagram;
+        const Webcam = Uppy.Webcam;
+        const Tus = Uppy.Tus;
 
-        uppy.on('complete', (result) => {
-          console.log(`Upload complete! We’ve uploaded these files: ${result.successful}`)
+        var uppy = Uppy.Core(
+          {
+            debug: true,
+            autoProceed: false,
+            restrictions: {
+              maxFileSize: 1000000000,
+              maxNumberOfFiles: 100,
+              minNumberOfFiles: 1,
+              allowedFileTypes: ['image/*', 'video/*']
+            }
+          }
+        )
+        .use(Dashboard, {
+          trigger: '.UppyModalOpenerBtn',
+          inline: true,
+          target: '#uppy-select-files',
+          replaceTargetContent: true,
+          showProgressDetails: true,
+          note: 'Images and video only, 2–3 files, up to 1 MB',
+          height: 470,
+          metaFields: [
+            { id: 'name', name: 'Name', placeholder: 'file name' },
+            { id: 'caption', name: 'Caption', placeholder: 'describe what the image is about' }
+          ],
+          browserBackButtonClose: true
+        })
+        .use(GoogleDrive, { target: Dashboard, serverUrl: 'https://companion.uppy.io' })
+        .use(Dropbox, { target: Dashboard, serverUrl: 'https://companion.uppy.io' })
+        .use(Instagram, { target: Dashboard, serverUrl: 'https://companion.uppy.io' })
+        .use(Webcam, { target: Dashboard })
+        .use(Tus, { endpoint: 'http://vidsnapprototype:8888/prototype3/files' })
+
+        uppy.on('complete', result => {
+          console.log('successful files:', result.successful)
+          console.log('failed files:', result.failed)
         })
       </script>
 
