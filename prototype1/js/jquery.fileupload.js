@@ -125,7 +125,7 @@
             limitMultiFileUploadSizeOverhead: 512,
             // Set the following option to true to issue all file upload requests
             // in a sequential order:
-            sequentialUploads: false,
+            sequentialUploads: true,
             // To limit the number of concurrent uploads,
             // set the following option to an integer greater than 0:
             limitConcurrentUploads: undefined,
@@ -164,7 +164,7 @@
             // Interval in milliseconds to calculate progress bitrate:
             bitrateInterval: 500,
             // By default, uploads are started automatically when adding files:
-            autoUpload: true,
+            autoUpload: false,
 
             // Error and info messages:
             messages: {
