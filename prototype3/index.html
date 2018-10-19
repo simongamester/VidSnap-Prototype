@@ -69,10 +69,10 @@
         .use(Webcam, { target: Dashboard })
 
         // Dev
-        .use(Tus, { endpoint: 'http://vidsnapprototype:8888/prototype3/files/' })
+        //.use(Tus, { endpoint: 'http://vidsnapprototype:8888/prototype3/files/' })
 
         // Staging
-        //.use(Tus, { endpoint: 'http://209.97.176.133/prototype1/files/' })
+        .use(Tus, { endpoint: 'http://209.97.176.133/prototype3/files/' })
         ;
 
         uppy.on('complete', result => {
