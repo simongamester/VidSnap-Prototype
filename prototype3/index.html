@@ -43,8 +43,9 @@
               //   currentFile,
               //   { name: currentFile + Date.now()
               // })
-              console.log( currentFile.data.name + ' ' + currentFile.data.lastModifiedDate );
-              $('.fileInfo').html( $('.fileInfo').html() + 'File name: ' + currentFile.data.name + ' Date: ' + currentFile.data.lastModifiedDate + '<br/>');
+              
+              // console.log( currentFile.data.name + ' ' + currentFile.data.lastModifiedDate );
+              // $('.fileInfo').html( $('.fileInfo').html() + 'File name: ' + currentFile.data.name + ' Date: ' + currentFile.data.lastModifiedDate + '<br/>');
               //return modifiedFile
             }
           }
@@ -68,12 +69,8 @@
         .use(Instagram, { target: Dashboard, serverUrl: 'https://companion.uppy.io' })
         .use(Webcam, { target: Dashboard })
 
-        // Dev
-        //.use(Tus, { endpoint: 'http://vidsnap:8888/prototype3/files/' })
-
-        // Staging
         .use(Tus, {
-          endpoint: 'http://209.97.176.133/prototype3/files/',
+          endpoint: '/prototype3/files/',
           resume: true,
           autoRetry: true,
           retryDelays: [0, 1000, 3000, 5000]
@@ -86,14 +83,6 @@
         })
 
       </script>
-
-      <br/>
-      <br/>
-
-      <h3>File Info</h3>
-      <div class="fileInfo">
-
-      </div>
 
     </div>
   </body>
