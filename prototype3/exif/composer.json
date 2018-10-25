@@ -1,0 +1,5 @@
+{
+    "require": {
+        "alchemy/phpexiftool": "^0.5.0"
+    }
+}

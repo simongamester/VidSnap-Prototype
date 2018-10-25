@@ -78,7 +78,7 @@ class Server extends AbstractTus
         $this->request    = new Request;
         $this->response   = new Response;
         $this->middleware = new Middleware;
-        $this->uploadDir  = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'uploads';
+        $this->uploadDir  = dirname(__DIR__, 5) . DIRECTORY_SEPARATOR . 'uploads';
 
         $this->setCache($cacheAdapter);
     }
